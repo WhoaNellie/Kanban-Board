@@ -164,6 +164,15 @@ $(document).ready(function () {
         if(done != null){
             done.on("click", function () {
     
+                // console.log("m1" + $("#modal-1").attr("checked"));
+                // $("#modal-1").attr("checked",false);
+                // console.log("m2" + $("#modal-1").attr("checked"));
+                // $("#modal-1").removeAttr("checked");
+                $(".modal").removeAttr("checked");
+                $(".modal-state").removeAttr("checked");
+                
+
+
                 let queryURL = "https://api.giphy.com/v1/gifs/random?tag=" +
                     "congrats" + "&api_key=lJvM8CYrpxziVxv5vy11SIH5QRxU7OU8" + "&limit=1";
 
@@ -175,13 +184,24 @@ $(document).ready(function () {
                     console.log(response);
                     let results = response.data; 
                     console.log(results.length);
+
+                    console.log("m3" + $("#modal-1").attr("checked"));
                     $("#modal-1").attr("checked",true);
+                    console.log("m4" + $("#modal-1").attr("checked"));
                         
                         $("#new-modal").attr("src", response.data.images.original.url);
                         console.log(response.data.url);
         
                 });
+
+                $(".modal").removeAttr("checked");
+                $(".modal-state").removeAttr("checked");
+                // $('.modal__inner').attr( "style","visibility:visible;");
         
+                // console.log("m5" + $("#modal-1").attr("checked"));
+                // $("#modal-1").attr("checked",false);
+                // console.log("m6" + $("#modal-1").attr("checked"));
+
             });
         }
 
