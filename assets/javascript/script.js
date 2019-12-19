@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     // checking for values in local storage and initializing if none
@@ -90,7 +91,7 @@ $(document).ready(function () {
 
         let toDo;
         let inProg;
-        let done;
+        let done = null;
 
         let stateDiv = $("<div>");
 
@@ -159,6 +160,42 @@ $(document).ready(function () {
             console.log("whoops");
         }
 
+      if(done != null){
+       done.on("click", function () {
+
+        let queryURL = "https://api.giphy.com/v1/gifs/random?tag=" +
+            "congrats" + "&api_key=lJvM8CYrpxziVxv5vy11SIH5QRxU7OU8" + "&limit=1";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            let results = response.data; 
+            console.log(results.length);
+            $("#myBtn").on("click",true);
+                
+                $("#new-modal").attr("src", response.data.images.original.url);
+                console.log(response.data.url);
+        //When user clicks (x), the modal closes
+                $(".close").on("click" , function(){
+                $(".modal").style.display = "none";
+            })
+        //When user clicks anywhere outside the modal, it closes
+            window.onclick = function(event){
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        });
+
+
+    });
+ 
+      }
+      
+      
         card.append(stateDiv);
         card.append(input);
 
@@ -202,5 +239,6 @@ $(document).ready(function () {
     }
 
 
+>>>>>>> testdevelop
 
 });

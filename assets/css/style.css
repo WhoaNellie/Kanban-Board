@@ -286,6 +286,18 @@ a.pure-button-primary {
 
 }
 
+
+/*Modal Box*/
+#gifs-go-here {
+    position: absolute;
+    top: 150px;
+    left: 490px;
+    max-height: 95px;
+    display: none;
+}
+
+  
+
 /*
  * -- DESKTOP (AND UP) MEDIA QUERIES --
  * On desktops and other large devices, we want to over-ride some

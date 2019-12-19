@@ -14,9 +14,14 @@
 
     <link rel="stylesheet" href="assets/css/card.css">
 
+    <link rel="stylesheet" href="assets/css/modal.css">
+
     <script src="assets/javascript/jquery-3.4.1.js"></script>
 
-    <script src="assets/javascript/script.js"></script>
+    <!--<script src="assets/javascript/script.js"></script>-->
+
+    <script src="assets/javascript/sassyAPI.js"></script>
+
         
 </head>
 
@@ -57,16 +62,27 @@
     <div id="gifs-go-here"></div>
 
 
+    <!--Trigger the modal-->
+    <button id="myBtn" style="display: none;"></button>
+    <!--Modal-->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="new-modal">
+        </div>
+    </div>
+
+    <!-- 
     <label  style="display: none;" class="btn" for="modal-1">Show me modal with a cat</label>
 
-    <input class="modal-state" id="modal-1" type="checkbox" style="display: none;"/>
-    <div class="modal">
-    <label class="modal__bg" for="modal-1"></label>
-    <div class="modal__inner">
-        <label class="modal__close" for="modal-1"></label>
-        <img id="new-modal"/>
-    </div>
-    </div>
+<input class="modal-state" id="modal-1" type="checkbox" style="display: none;"/>
+<div class="modal">
+  <label class="modal__bg" for="modal-1"></label>
+  <div class="modal__inner">
+    <label class="modal__close" for="modal-1"></label>
+    <img id="new-modal"/>
+  </div>
+</div> -->
 
 
     <div class="footer l-box is-center">
