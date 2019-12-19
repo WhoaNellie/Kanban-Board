@@ -1,61 +1,167 @@
-$(document).ready(function(){
 
-// adding event listener to button to make new kanban cards
-let cardNum = 0; // keeping track of the number of kanban cards
-$("#newCard").on("click", function(){
+$(document).ready(function () {
 
-    // adding class for styling
-    let card = $("<div>").attr({
-        class : "card"
+    // checking for values in local storage and initializing if none
+    let cardNum;
+    if (localStorage.getItem("cardNum")) {
+        cardNum = localStorage.getItem("cardNum");
+    } else {
+        cardNum = 0;
+    }
+
+    let taskArr;
+    if (localStorage.getItem("tasks")) {
+        taskArr = JSON.parse(localStorage.getItem("tasks"));
+    } else {
+        taskArr = [];
+    }
+
+    let stateArr;
+    if (localStorage.getItem("states")) {
+        stateArr = JSON.parse(localStorage.getItem("states"));
+    } else {
+        stateArr = [];
+    }
+
+    //populates previously made cards
+    function renewCards(){
+        for (let i = 0; i < stateArr.length; i++) {
+            genCards(stateArr[i], taskArr[i], i);
+        }
+    }
+
+    if (stateArr.length > 0 || taskArr.length) {
+        renewCards();
+    }
+    // adding event listener to button to make new kanban card
+    $(document).on("click", ".newCard", function () {
+        genCards($(this).attr("data-state"), "", cardNum);
+
+        // not DRY but whatever
+        if (stateArr[cardNum]) {
+            stateArr[cardNum] = $(this).attr("data-state");
+        } else {
+            stateArr.push($(this).attr("data-state"));
+        }
+
+        localStorage.setItem("states", JSON.stringify(stateArr));
+        localStorage.setItem("tasks", JSON.stringify(taskArr));
+
+        cardNum++;
+        localStorage.setItem("cardNum", cardNum);
     });
 
-    //input for adding text to note, data attr for local storage
-    let input = $("<input>").attr({
-        type : "text",
-        "data-num" : cardNum
+    // event listener for changes in card text
+    $(document).on("blur", ".task", saveTask);
+
+    //enter causes blur
+    $(document).on("keypress", ".task", function(event){
+        if(event.which == 13){
+            $(this).blur();
+            saveTask();
+        }
     });
 
-    // making radio buttons for task state
+    $(document).trigger("change",".task", saveTask);
+    
+    // event listener for changes in card state
+    $(document).on("click", ".state", changeState);
 
-    // div to add radio buttons for organization
-    let radioDiv = $("<div>");
+    function genCards(cardState, cardTask, num) {
 
-    let toDo = $("<input>").attr({
-        type : "radio",
-        name : "progress",
-        value : "toDo",
-        "data-id" : "toDo" + cardNum
-    });
+        stateArr[num] = cardState;
+        // adding class for styling
+        let card = $("<div>").attr({
+            class: "card",
+            "data-id": num
+        });
 
-        // adding labels to buttons
-        let toDoLabel = $("<label>").attr({
-            for : "toDo" + cardNum
-        })
-        toDoLabel.text("To Do");
+        //input for adding text to note, data attr for local storage
+        let input = $("<input>").attr({
+            type: "text",
+            class: "task",
+            "data-id": num,
+        });
 
-    let inProg = $("<input>").attr({
-        type : "radio",
-        name : "progress",
-        value : "inProg",
-        "data-id" : "inProg" + cardNum
-    });
+        input.attr("value", cardTask);
 
-        let inProgLabel = $("<label>").attr({
-            for : "toDo" + cardNum
-        })
-        inProgLabel.text("In Progress");
+        // if (taskArr[num]) {
+        //     input.attr("value", taskArr[num]);
+        // }
 
-    let done = $("<input>").attr({
-        type : "radio",
-        name : "progress",
-        value : "done",
-        id : "complete",
-        "data-id" : "done" + cardNum
-    });
+        let toDo;
+        let inProg;
+        let done = null;
 
-    //Populate random gif when radio button "done" with card
+        let stateDiv = $("<div>");
 
-    done.on("click", function () {
+        if (cardState == "toDo") {
+
+            inProg = $("<button>").attr({
+                class: "state",
+                "data-id" : "inProg"
+            });
+
+            stateDiv.append(inProg);
+
+            done = $("<button>").attr({
+                class: "state",
+                "data-id" : "done"
+            });
+
+            stateDiv.append(done);
+
+            $(".toDo").append(card);
+
+            inProg.text("In Progress");
+            done.text("Done");
+
+        } else if (cardState == "inProg") {
+            toDo = $("<button>").attr({
+                class: "state",
+                "data-id" : "toDo"
+            });
+
+            stateDiv.append(toDo);
+
+            done = $("<button>").attr({
+                class: "state",
+                "data-id" : "done"
+            });
+
+            stateDiv.append(done);
+
+            $(".inProg").append(card);
+
+            toDo.text("To Do");
+            done.text("Done");
+
+        } else if (cardState == "done") {
+            toDo = $("<button>").attr({
+
+                class: "state",
+                "data-id" : "toDo"
+            });
+
+            stateDiv.append(toDo);
+
+            inProg = $("<button>").attr({
+                class: "state",
+                "data-id" : "inProg"
+            });
+
+            stateDiv.append(inProg);
+
+            $(".done").append(card);
+
+            toDo.text("To Do");
+            inProg.text("In Progress");
+        } else {
+            console.log("whoops");
+        }
+
+      if(done != null){
+       done.on("click", function () {
 
         let queryURL = "https://api.giphy.com/v1/gifs/random?tag=" +
             "congrats" + "&api_key=lJvM8CYrpxziVxv5vy11SIH5QRxU7OU8" + "&limit=1";
@@ -86,31 +192,53 @@ $("#newCard").on("click", function(){
 
 
     });
+ 
+      }
+      
+      
+        card.append(stateDiv);
+        card.append(input);
 
-        let doneLabel = $("<label>").attr({
-            for : "done" + cardNum
-        })
-        doneLabel.text("Done");
+    }
 
-    // appending everything
+    // MAKE CARDS CHANGE CATEGORIES
 
-    card.append(radioDiv);
-    card.append(input);
 
-    radioDiv.append(toDo);
-        radioDiv.append(toDoLabel);
-    radioDiv.append(inProg);
-        radioDiv.append(inProgLabel);
-    radioDiv.append(done);
-        radioDiv.append(doneLabel);
+    function saveTask() {
+        console.log("save task");
 
-    $("#cards").append(card);
-    cardNum++;
-});
+        // pushing a new index/value if this is a new card, else updating the old card's value
 
-// add event listener for enter
+        // multiple blank cards can cause issues
 
-// add stuff to local storage
-    // array of cards with text and progress saved
+        if (taskArr[$(this).attr("data-id")]) {
+            console.log("if");
+            taskArr[$(this).attr("data-id")] = $(this).val();
+        } else {
+            console.log("else");
+            taskArr.push($(this).val());
+        }
+
+        localStorage.setItem("tasks", JSON.stringify(taskArr));
+
+    }
+
+    function changeState() {
+        console.log("save state");
+
+        if (stateArr[$(this).parent().parent().attr("data-id")]) {
+            stateArr[$(this).parent().parent().attr("data-id")] = $(this).attr("data-id");
+        } else {
+            stateArr.push($(this).attr("data-id"));
+        }
+        // convert JSON to jquery? might cause problems at some point. getJSON()
+        localStorage.setItem("states", JSON.stringify(stateArr));
+        $(".card").remove();
+        // taskArr = JSON.parse(localStorage.getItem("tasks"));
+        renewCards();
+    }
+
+
+>>>>>>> testdevelop
 
 });
