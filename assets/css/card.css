@@ -1,0 +1,22 @@
+#cards{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card{
+    padding: 20px;
+    height: 200px;
+    width: 250px;
+    background-color: rgb(255, 255, 146);
+    border: 1px solid grey;
+}
+
+.card input[type="text"]{
+    border: none;
+    background-color: rgb(255, 255, 146);
+    width: 100%;
+    height: 100px;
+    margin: 15px 0;
+
+}
