@@ -23,12 +23,17 @@ $(document).ready(function () {
     }
 
     //populates previously made cards
-    if (stateArr.length > 0 || taskArr.length) {
+
+    function renewCards(){
         for (let i = 0; i < stateArr.length; i++) {
             genCards(stateArr[i], taskArr[i], i);
         }
     }
 
+    if (stateArr.length > 0 || taskArr.length) {
+        renewCards();
+    }
+  
     // adding event listener to button to make new kanban card
     $(document).on("click", ".newCard", function () {
         genCards($(this).attr("data-state"), "", cardNum);
@@ -165,6 +170,7 @@ $(document).ready(function () {
 
     }
 
+
     $('.ex').click(function() {
         console.log();
         $(this).parent().remove();
@@ -172,13 +178,19 @@ $(document).ready(function () {
     })
 
 
+
     function saveTask() {
         console.log("save task");
+
         console.log($(this).attr("data-id"));
         // pushing a new index/value if this is a new card, else updating the old card's value
 
         console.log(taskArr[0]);
         console.log(taskArr[$(this).attr("data-id")]);
+
+        // pushing a new index/value if this is a new card, else updating the old card's value
+
+        // multiple blank cards can cause issues
 
         if (taskArr[$(this).attr("data-id")]) {
             console.log("if");
@@ -200,9 +212,11 @@ $(document).ready(function () {
         } else {
             stateArr.push($(this).attr("data-id"));
         }
-
         // convert JSON to jquery? might cause problems at some point. getJSON()
         localStorage.setItem("states", JSON.stringify(stateArr));
+        $(".card").remove();
+        // taskArr = JSON.parse(localStorage.getItem("tasks"));
+        renewCards();
     }
 
 
