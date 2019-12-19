@@ -23,6 +23,7 @@ $(document).ready(function () {
     }
 
     //populates previously made cards
+
     function renewCards(){
         for (let i = 0; i < stateArr.length; i++) {
             genCards(stateArr[i], taskArr[i], i);
@@ -32,6 +33,7 @@ $(document).ready(function () {
     if (stateArr.length > 0 || taskArr.length) {
         renewCards();
     }
+  
     // adding event listener to button to make new kanban card
     $(document).on("click", ".newCard", function () {
         genCards($(this).attr("data-state"), "", cardNum);
@@ -64,7 +66,7 @@ $(document).ready(function () {
     $(document).trigger("change",".task", saveTask);
     
     // event listener for changes in card state
-    $(document).on("click", ".state", changeState);
+    $(document).on("click", ".state", saveState);
 
     function genCards(cardState, cardTask, num) {
 
@@ -74,6 +76,9 @@ $(document).ready(function () {
             class: "card",
             "data-id": num
         });
+
+        // delete card
+        let ex = $('<i class="fas fa-times ex"></i>');
 
         //input for adding text to note, data attr for local storage
         let input = $("<input>").attr({
@@ -160,15 +165,28 @@ $(document).ready(function () {
         }
 
         card.append(stateDiv);
+        card.append(ex);
         card.append(input);
 
     }
 
-    // MAKE CARDS CHANGE CATEGORIES
+
+    $('.ex').click(function() {
+        console.log();
+        $(this).parent().remove();
+        localStorage.removeItem(this);
+    })
+
 
 
     function saveTask() {
         console.log("save task");
+
+        console.log($(this).attr("data-id"));
+        // pushing a new index/value if this is a new card, else updating the old card's value
+
+        console.log(taskArr[0]);
+        console.log(taskArr[$(this).attr("data-id")]);
 
         // pushing a new index/value if this is a new card, else updating the old card's value
 
@@ -186,7 +204,7 @@ $(document).ready(function () {
 
     }
 
-    function changeState() {
+    function saveState() {
         console.log("save state");
 
         if (stateArr[$(this).parent().parent().attr("data-id")]) {
