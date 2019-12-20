@@ -22,15 +22,25 @@ $(document).ready(function () {
         stateArr = [];
     }
 
+    let deleteArr;
+    if(localStorage.getItem("deleted")){
+        deleteArr = JSON.parse(localStorage.getItem("deleted"));
+    } else {
+        deleteArr = [];
+    }
+
     //populates previously made cards
     function renewCards(){
-        for (let i = 0; i < stateArr.length; i++) {
-            genCards(stateArr[i], taskArr[i], i);
-            console.log(taskArr[i]);
+        for(let i = 0; i < deleteArr.length; i++){
+            if(deleteArr[i] == "visible"){
+                genCards(stateArr[i], taskArr[i], i);
+                console.log("visible");
+            }
+            console.log("hidden?");
         }
     }
 
-    if (stateArr.length > 0 || taskArr.length) {
+    if (stateArr.length > 0) {
         renewCards();
     }
 
@@ -45,7 +55,6 @@ $(document).ready(function () {
         } else {
             stateArr.push($(this).attr("data-state"));
         }
-    
 
         localStorage.setItem("states", JSON.stringify(stateArr));
         localStorage.setItem("tasks", JSON.stringify(taskArr));
@@ -63,8 +72,6 @@ $(document).ready(function () {
             $(this).blur();
         }
     });
-
-    // $(document).trigger("change",".task", saveTask);
     
     // event listener for changes in card state
     $(document).on("click", ".state", changeState);
@@ -90,6 +97,9 @@ $(document).ready(function () {
         }else{
             input.attr("value", cardTask);
         }
+
+        // delete card
+        let ex = $('<i class="fas fa-times ex"></i>');
 
         let toDo;
         let inProg;
@@ -162,13 +172,24 @@ $(document).ready(function () {
             console.log("whoops");
         }
 
+        if(!deleteArr[num]){
+            deleteArr.push("visible");
+        }
+        localStorage.setItem("deleted", JSON.stringify(deleteArr));
+
         card.append(stateDiv);
+        card.append(ex);
         card.append(input);
 
     }
 
     // delete buttons
-
+    $(document).on("click", ".ex" ,function() {
+        console.log("delete?");
+        $(this).parent().remove();
+        deleteArr[$(this).parent().attr("data-id")] = "hidden";
+        localStorage.setItem("deleted", JSON.stringify(deleteArr));
+    });
 
     function saveTask() {
         console.log("save task");
