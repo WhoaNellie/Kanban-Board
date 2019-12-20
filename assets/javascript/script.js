@@ -101,9 +101,6 @@ $(document).ready(function () {
             input.attr("value", cardTask);
         }
 
-        // delete card
-        let ex = $('<i class="fas fa-times ex"></i>');
-
         let toDo;
         let inProg;
         let done;
