@@ -26,12 +26,15 @@ $(document).ready(function () {
     function renewCards(){
         for (let i = 0; i < stateArr.length; i++) {
             genCards(stateArr[i], taskArr[i], i);
+            console.log(taskArr[i]);
         }
     }
 
     if (stateArr.length > 0 || taskArr.length) {
         renewCards();
     }
+
+    
     // adding event listener to button to make new kanban card
     $(document).on("click", ".newCard", function () {
         genCards($(this).attr("data-state"), "", cardNum);
@@ -42,6 +45,7 @@ $(document).ready(function () {
         } else {
             stateArr.push($(this).attr("data-state"));
         }
+    
 
         localStorage.setItem("states", JSON.stringify(stateArr));
         localStorage.setItem("tasks", JSON.stringify(taskArr));
@@ -57,11 +61,10 @@ $(document).ready(function () {
     $(document).on("keypress", ".task", function(event){
         if(event.which == 13){
             $(this).blur();
-            saveTask();
         }
     });
 
-    $(document).trigger("change",".task", saveTask);
+    // $(document).trigger("change",".task", saveTask);
     
     // event listener for changes in card state
     $(document).on("click", ".state", changeState);
@@ -82,11 +85,11 @@ $(document).ready(function () {
             "data-id": num,
         });
 
-        input.attr("value", cardTask);
-
-        // if (taskArr[num]) {
-        //     input.attr("value", taskArr[num]);
-        // }
+        if(cardTask == ""){
+            taskArr[num] = "";
+        }else{
+            input.attr("value", cardTask);
+        }
 
         let toDo;
         let inProg;
@@ -164,7 +167,7 @@ $(document).ready(function () {
 
     }
 
-    // MAKE CARDS CHANGE CATEGORIES
+    // delete buttons
 
 
     function saveTask() {
@@ -172,9 +175,7 @@ $(document).ready(function () {
 
         // pushing a new index/value if this is a new card, else updating the old card's value
 
-        // multiple blank cards can cause issues
-
-        if (taskArr[$(this).attr("data-id")]) {
+        if (taskArr[$(this).attr("data-id")] != null) {
             console.log("if");
             taskArr[$(this).attr("data-id")] = $(this).val();
         } else {
