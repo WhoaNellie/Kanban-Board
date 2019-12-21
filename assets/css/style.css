@@ -332,6 +332,7 @@ a.pure-button-primary {
     padding: 20px;
     height: 200px;
     width: 250px;
+    margin: 5px auto;
     background-color: rgb(255, 255, 146);
     border: 1px solid grey;
     position: relative;
@@ -434,6 +435,8 @@ body {
         cursor: pointer;
     }
 
+    
+
 
 /*
  * -- MOBILE (AND UP) MEDIA QUERIES --
@@ -471,7 +474,10 @@ body {
     #cards {
         margin: 0 auto;
     }
+
 }
+
+
 
 /*
  * -- TABLET (AND UP) MEDIA QUERIES --
@@ -518,6 +524,7 @@ body {
         border: none;
     }
 
+
 }
 
 
@@ -530,5 +537,11 @@ body {
     /* We increase the header font size even more */
     .splash-head {
         font-size: 300%;
+    }
+
+    .inProg{
+        border-left: 5px dashed #5b80a7; 
+        border-right: 5px dashed #5b80a7; 
+        padding: 0 3px;
     }
 }
