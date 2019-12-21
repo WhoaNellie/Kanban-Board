@@ -15,6 +15,21 @@ body {
     padding: 0 !important;
 }
 
+.verticalLine {
+    border: thick solid #5b80a7
+}
+
+.flex-container {
+    align-self: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 200px;
+}
+
+.flex-container > div{
+    margin-right: 100px;
+}
+
 h1 {
     color: white;
     text-align: center;
@@ -56,15 +71,11 @@ p {
     color: white;
     text-align: center;
     font: bold;
-    font-size: large;
+    font-size: 20px;
     text-shadow: 1px 1px 3px #3c3c3c;
     font-family: 'Open Sans', sans-serif !important;
 }
-h2,
-h3,
-h4,
-h5,
-h6,
+
 label {
     color: #34495e;
 }
