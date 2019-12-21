@@ -1,33 +1,43 @@
-# Project1
-Project Title: Personal Kanban board 
+# Project One
 
-Project Description: A kanban board layout to help with personal organization of tasks
+## Description
 
-User Story: Everyone needs a way to stay organized, and a kanban board meets that need. The kanban board allows the user to add virtual post-its to one of three columns - a backlog, in progress, and done column. When the user completes a task, a gif pops up to congratulate them. 
+This is our team's first project for UA's coding bootcamp. It is a virtual Kanban Board with two distinct "attitudes" to choose from depending on if you want sweet, encouraging messages or sarcatic, biting motivation. 
 
-Wireframe:
+## Installation
 
-APIs to be used:
-- nice api
-- f*** off api
-- maybe gify if time
+To install this project all you need to do is download the repository and open index.html using your browser of choice. Alternatively, you could just go to the github page for this website.
 
-Rough Breakdown of Tasks:
-- ux/ui
-- mobile-first, responsive
-- inspirational quote at the top of the page
-- advice/joke/inspirational quote at the top of the page // "nice" mode vs "f*** off" mode
-- create a card at any phase
-- delete a card at any phase
-- put text on the card & store it
-- create three categories - backlog, current, complete
-- ability to move cards while retaining info
-- change color of cards based on status
-- modal popup of gif when card is marked complete
+## Usage
 
-Branch split up:
-- responsive
-- cards
-- kanban cards
-** maybe modal popup of gif when complete, based on top api
+To use this project, choose your preffered "attitude" from the homepage. Then, crate new cards in each category depending on if you want to mark down a task as "To-Do", "In-Progress", or "Done". You may then use the buttons on the cards to move them to each different catogory or delete them. You may toggle between attitudes by using the links in the top right-hand corner.
 
+To modify this project, you will need to reference the documentation for Pure CSS for the base styling, jQuery for many of the script functions, the Quotes.rest API, and the GIPHY API. 
+
+## Credits
+
+Credit to Pure CSS, Quotes.rest, GIPHY, and Font Awesome. 
+
+## License
+
+MIT License
+
+Copyright (c) 2019 Angela Banks, Christine Camou, Jenna Miles, Kaylee Nelson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
