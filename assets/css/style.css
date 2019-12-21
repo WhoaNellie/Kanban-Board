@@ -363,6 +363,21 @@ a.pure-button-primary {
 }
 
 
+button[data-id = "toDo"],button[data-id = "inProg"],button[data-id = "done"]{
+    border: none;
+    background-color: rgb(255, 255, 146);
+    font-size: x-large;
+    margin: 0 2px;
+}
+
+.newCard{
+    border: none;
+    border-radius: 5px;
+    background-color: #345d88;
+    color: white;
+}
+
+
 /* GIFY POPUP */
 body {
     padding: 1%;
@@ -540,8 +555,8 @@ body {
     }
 
     .inProg{
-        border-left: 5px dashed #5b80a7; 
-        border-right: 5px dashed #5b80a7; 
+        border-left: 7px solid #5b80a7; 
+        border-right: 7px solid #5b80a7; 
         padding: 0 3px;
     }
 }

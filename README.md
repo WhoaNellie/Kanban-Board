@@ -12,7 +12,7 @@ To install this project all you need to do is download the repository and open i
 
 To use this project, choose your preffered "attitude" from the homepage. 
 ![Image of the splash-screen](/assets/images/home.png)
-Then, crate new cards in each category depending on if you want to mark down a task as "To-Do", "In-Progress", or "Done". You may then use the buttons on the cards to move them to each different catogory or delete them. You may toggle between attitudes by using the links in the top right-hand corner.
+Then, crate new cards in each category depending on if you want to mark down a task as "To-Do", "In-Progress", or "Done". You may then use the buttons on the cards to move them to each different catogory or delete them. You may toggle between attitudes by using the links in the top right-hand corner. Press enter or click away from the text box to save your note.
 ![Image of the note-board](assets/images/sassy.png)
 When you mark a task done, a celabratory gif will pop up! Click anywhere to dismiss.
 ![Image of a gif pop-up](assets/images/sweet.png)

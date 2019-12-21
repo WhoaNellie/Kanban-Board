@@ -123,8 +123,8 @@ $(document).ready(function () {
 
             $(".toDo").append(card);
 
-            inProg.text("In Progress");
-            done.text("Done");
+            inProg.html("<i class='fas fa-chart-line'></i>");
+            done.html("<i class='far fa-check-circle'></i>");
 
         } else if (cardState == "inProg") {
             toDo = $("<button>").attr({
@@ -143,8 +143,8 @@ $(document).ready(function () {
 
             $(".inProg").append(card);
 
-            toDo.text("To Do");
-            done.text("Done");
+            toDo.html("<i class='fas fa-list-ol'></i>");
+            done.html("<i class='far fa-check-circle'></i>");
 
         } else if (cardState == "done") {
             toDo = $("<button>").attr({
@@ -164,8 +164,8 @@ $(document).ready(function () {
 
             $(".done").append(card);
 
-            toDo.text("To Do");
-            inProg.text("In Progress");
+            toDo.html("<i class='fas fa-list-ol'></i>");
+            inProg.html("<i class='fas fa-chart-line'></i>");
         } else {
             console.log("whoops");
         }
