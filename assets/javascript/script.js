@@ -4,7 +4,6 @@ $(document).ready(function () {
     let cardNum;
     if (localStorage.getItem("cardNum")) {
         cardNum = localStorage.getItem("cardNum");
-        console.log("nums in storage");
     } else {
         cardNum = 0;
     }
@@ -12,8 +11,6 @@ $(document).ready(function () {
     let taskArr;
     if (localStorage.getItem("tasks")) {
         taskArr = JSON.parse(localStorage.getItem("tasks"));
-        console.log(taskArr);
-        console.log("tasks in storage");
     } else {
         taskArr = [];
     }
@@ -21,24 +18,34 @@ $(document).ready(function () {
     let stateArr;
     if (localStorage.getItem("states")) {
         stateArr = JSON.parse(localStorage.getItem("states"));
-        console.log(stateArr);
-        console.log("states in storage");
     } else {
         stateArr = [];
     }
 
+    let deleteArr;
+    if(localStorage.getItem("deleted")){
+        deleteArr = JSON.parse(localStorage.getItem("deleted"));
+    } else {
+        deleteArr = [];
+    }
+
     //populates previously made cards
-    if (stateArr.length > 0 || taskArr.length) {
-        console.log("old cards");
-        for (let i = 0; i < stateArr.length; i++) {
-            genCards(stateArr[i], i);
+
+    function renewCards(){
+        for(let i = 0; i < deleteArr.length; i++){
+            if(deleteArr[i] == "visible"){
+                genCards(stateArr[i], taskArr[i], i);
+            }
         }
+    }
+
+    if (stateArr.length > 0) {
+        renewCards();
     }
 
     // adding event listener to button to make new kanban card
     $(document).on("click", ".newCard", function () {
-        genCards($(this).attr("data-state"), cardNum);
-        console.log($(this).attr("data-state"));
+        genCards($(this).attr("data-state"), "", cardNum);
 
         // not DRY but whatever
         if (stateArr[cardNum]) {
@@ -48,6 +55,7 @@ $(document).ready(function () {
         }
 
         localStorage.setItem("states", JSON.stringify(stateArr));
+        localStorage.setItem("tasks", JSON.stringify(taskArr));
 
         cardNum++;
         localStorage.setItem("cardNum", cardNum);
@@ -60,17 +68,13 @@ $(document).ready(function () {
     $(document).on("keypress", ".task", function(event){
         if(event.which == 13){
             $(this).blur();
-            saveTask();
         }
     });
-
-    // make cards save before page refresh
-
+    
     // event listener for changes in card state
-    $(document).on("click", ".state", changeState);
+    $(document).on("click", ".state", saveState);
 
-    function genCards(cardState, num) {
-        console.log(cardState + num);
+    function genCards(cardState, cardTask, num) {
 
         stateArr[num] = cardState;
         // adding class for styling
@@ -79,15 +83,20 @@ $(document).ready(function () {
             "data-id": num
         });
 
+        // delete card
+        let ex = $('<i class="fas fa-times ex"></i>');
+
         //input for adding text to note, data attr for local storage
         let input = $("<input>").attr({
             type: "text",
             class: "task",
-            "data-id": num
+            "data-id": num,
         });
 
-        if (taskArr[num]) {
-            input.attr("value", taskArr[num]);
+        if(cardTask == ""){
+            taskArr[num] = "";
+        }else{
+            input.attr("value", cardTask);
         }
 
         let toDo;
@@ -100,14 +109,14 @@ $(document).ready(function () {
 
             inProg = $("<button>").attr({
                 class: "state",
-                id: "inProg" + num
+                "data-id" : "inProg"
             });
 
             stateDiv.append(inProg);
 
             done = $("<button>").attr({
                 class: "state",
-                id: "done" + num
+                "data-id" : "done"
             });
 
             stateDiv.append(done);
@@ -120,14 +129,14 @@ $(document).ready(function () {
         } else if (cardState == "inProg") {
             toDo = $("<button>").attr({
                 class: "state",
-                id: "toDo" + num
+                "data-id" : "toDo"
             });
 
             stateDiv.append(toDo);
 
             done = $("<button>").attr({
                 class: "state",
-                id: "done" + num
+                "data-id" : "done"
             });
 
             stateDiv.append(done);
@@ -141,14 +150,14 @@ $(document).ready(function () {
             toDo = $("<button>").attr({
 
                 class: "state",
-                id: "toDo" + num
+                "data-id" : "toDo"
             });
 
             stateDiv.append(toDo);
 
             inProg = $("<button>").attr({
                 class: "state",
-                id: "inProg" + num
+                "data-id" : "inProg"
             });
 
             stateDiv.append(inProg);
@@ -162,43 +171,33 @@ $(document).ready(function () {
         }
 
         if(done != null){
-            done.on("click", function () {
-    
-                let queryURL = "https://api.giphy.com/v1/gifs/random?tag=" +
-                    "congrats" + "&api_key=lJvM8CYrpxziVxv5vy11SIH5QRxU7OU8" + "&limit=1";
-
-        
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-                    console.log(response);
-                    let results = response.data; 
-                    console.log(results.length);
-                    $("#modal-1").attr("checked",true);
-                        
-                        $("#new-modal").attr("src", response.data.images.original.url);
-                        console.log(response.data.url);
-        
-                });
-        
-            });
+            done.on("click", getGif);
         }
 
-        card.append(stateDiv);
-        card.append(input);
+        if(!deleteArr[num]){
+            deleteArr.push("visible");
+        }
+        localStorage.setItem("deleted", JSON.stringify(deleteArr));
 
+        card.append(stateDiv);
+        card.append(ex);
+        card.append(input);
 
     }
 
+    // delete buttons
+    $(document).on("click", ".ex" ,function() {
+        $(this).parent().remove();
+        deleteArr[$(this).parent().attr("data-id")] = "hidden";
+        localStorage.setItem("deleted", JSON.stringify(deleteArr));
+    });
+
 
     function saveTask() {
-        console.log("save task");
-        console.log($(this).val());
-        console.log($(this).attr("data-id"));
 
         // pushing a new index/value if this is a new card, else updating the old card's value
-        if (taskArr[$(this).attr("data-id")]) {
+
+        if (taskArr[$(this).attr("data-id")] != null) {
             taskArr[$(this).attr("data-id")] = $(this).val();
         } else {
             taskArr.push($(this).val());
@@ -208,23 +207,19 @@ $(document).ready(function () {
 
     }
 
-    function changeState() {
-        console.log("save state");
-        console.log($(this).prop("nodeName"));
-        console.log($(this).parent().parent().attr("data-id"));
-
-        $(this).parent().parent().attr("state", $(this).attr("value"));
+    function saveState() {
 
         if (stateArr[$(this).parent().parent().attr("data-id")]) {
-            stateArr[$(this).parent().parent().attr("data-id")] = $(this).attr("value");
+            stateArr[$(this).parent().parent().attr("data-id")] = $(this).attr("data-id");
         } else {
-            stateArr.push($(this).attr("value"));
+            stateArr.push($(this).attr("data-id"));
         }
 
-        // convert JSON to jquery? might cause problems at some point. getJSON()
         localStorage.setItem("states", JSON.stringify(stateArr));
+        $(".card").remove();
+        renewCards();
     }
 
-    //add a way to delete cards
+
 
 });
