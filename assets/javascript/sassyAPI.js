@@ -1,7 +1,4 @@
-   
-function getGif() {
-
-    let queryFunny = 'http://quotes.rest/qod.json?category=funny';
+let queryFunny = 'http://quotes.rest/qod.json?category=funny';
 
     $.ajax ({
         url: queryFunny,
@@ -13,6 +10,11 @@ function getGif() {
         $('#quoteArea').html(quote);
         $('#quoteAuthor').html(author);
     });
+    
+    
+function getGif() {
+
+    
 
     let queryURL = "https://api.giphy.com/v1/gifs/random?tag=" +
         "sassy" + "&api_key=lJvM8CYrpxziVxv5vy11SIH5QRxU7OU8" + "&limit=1";
