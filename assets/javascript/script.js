@@ -35,9 +35,7 @@ $(document).ready(function () {
         for(let i = 0; i < deleteArr.length; i++){
             if(deleteArr[i] == "visible"){
                 genCards(stateArr[i], taskArr[i], i);
-                console.log("visible");
             }
-            console.log("hidden?");
         }
     }
 
@@ -103,7 +101,7 @@ $(document).ready(function () {
 
         let toDo;
         let inProg;
-        let done;
+        let done = null;
 
         let stateDiv = $("<div>");
 
@@ -170,6 +168,10 @@ $(document).ready(function () {
             inProg.text("In Progress");
         } else {
             console.log("whoops");
+        }
+
+        if(done != null){
+            done.on("click", getGif);
         }
 
         if(!deleteArr[num]){
