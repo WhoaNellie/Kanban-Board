@@ -8,13 +8,15 @@ User Story: Everyone needs a way to stay organized, and a kanban board meets tha
 Wireframe:
 
 APIs to be used:
-- giphy api
-- 'they said so' quote api
+- nice api
+- f*** off api
+- maybe gify if time
 
 Rough Breakdown of Tasks:
 - ux/ui
 - mobile-first, responsive
 - inspirational quote at the top of the page
+- advice/joke/inspirational quote at the top of the page // "nice" mode vs "f*** off" mode
 - create a card at any phase
 - delete a card at any phase
 - put text on the card & store it
@@ -27,3 +29,5 @@ Branch split up:
 - responsive
 - cards
 - kanban cards
+** maybe modal popup of gif when complete, based on top api
+

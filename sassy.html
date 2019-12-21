@@ -23,9 +23,10 @@
     <div class="container">
         <div class="header">
             <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-                <a class="pure-menu-heading" href="index.html">Kanban Attitude Board</a>
+                <a class="pure-menu-heading" href="">Kanban Attitude Board</a>
             
                 <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-selected"><a href="index.html" class="pure-menu-link">Home</a></li>
                     <li class="pure-menu-item"><a href="sassy.html" class="pure-menu-link">Sassy</a></li>
                     <li class="pure-menu-item"><a href="sweet.html" class="pure-menu-link">Sweet</a></li>
                 </ul>
@@ -39,51 +40,51 @@
             <div class="pure-u-1">
                 <h1>Let's Freaking Do This</h1>
             </div>
-            <!-- quote api injection -->
-            <div class="quoteWrapper">
-                <div id="quoteArea" class="pure-u-1 quote"></div>
-                <div id="quoteAuthor" class="pure-u-1 quote"></div>
-            </div>            
-        <div class="pure-u-1-3"><p>I know! It's on my to do list. </p>
-            <div id="cards"></div>
-            <button type="submit" id="newCard" name="newCard">Add a Card</button>
+                    <!-- quote api injection -->
+                    <div class="quoteWrapper">
+                        <div id="quoteArea" class="pure-u-1 quote"></div>
+                        <div id="quoteAuthor" class="pure-u-1 quote"></div>
+                    </div>
+                <div class="pure-u-1-3"><p> I know! It's on my to do list. </p>
+                    <div class="cards toDo"></div>
+                    <button type="submit" class="newCard" name="newCard" data-state="toDo">Add a Card</button>
+                </div>
+                <div class="pure-u-1-3"><p>I'm working on it, geez.</p>     
+                        <div class="cards inProg"></div>
+                        <button type="submit" class="newCard" name="newCard" data-state="inProg">Add a Card</button>
+                </div>
+                <div class="pure-u-1-3"><p>Bask in my Glory</p>      
+                    <div class="cards done"></div>
+                    <button type="submit" class="newCard" name="newCard" data-state="done">Add a Card</button>
+                </div>
+            </div>
+            
+            <div id="gifs-go-here"></div>
+            <!--Trigger the modal-->
+            <button id="myBtn" style="display: none;"></button>
+            <!--Modal-->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <img id="new-modal">
+                </div>
+            </div>
+
+
+            <label  style="display: none;" class="btn" for="modal-1">Show me modal with a cat</label>
+        
+        <input class="modal-state" id="modal-1" type="checkbox" style="display: none;"/>
+        
+        <div class="modal">
+          <label class="modal__bg" for="modal-1"></label>
+          <div class="modal__inner">
+            <label class="modal__close" for="modal-1"></label>
+            <img id="new-modal"/>
+          </div>
         </div>
-        <div class="pure-u-1-3"> <p>I'm working on it, geez.</p>     
-                <div id="cards"></div>
-                <button type="submit" id="newCard" name="newCard">Add a Card</button>
-        </div>
-        <div class="pure-u-1-3"><p>Bask in my glory</p>      
-            <div id="cards"></div>
-            <button type="submit" id="newCard" name="newCard">Add a Card</button>
-        </div>
-    </div>
-
-    <div id="gifs-go-here"></div>
-
-    <!--Trigger the modal-->
-    <button id="myBtn" style="display: none;"></button>
-    <!--Modal-->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <img id="new-modal">
-        </div>
-    </div>
-
-    <label  style="display: none;" class="btn" for="modal-1">Show me modal with a cat</label>
-
-    <input class="modal-state" id="modal-1" type="checkbox" style="display: none;"/>
-    <div class="modal">
-    <label class="modal__bg" for="modal-1"></label>
-    <div class="modal__inner">
-        <label class="modal__close" for="modal-1"></label>
-        <img id="new-modal"/>
-    </div>
-    </div>
-
-
+    
     <div class="footer l-box is-center">
-        Are you sure you are done?
+        Are you sure you are done? 
     </div>
    
 </body>
