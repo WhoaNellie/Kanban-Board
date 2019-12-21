@@ -1,7 +1,4 @@
-   
-function getGif() {
-
-    let queryInspire = 'http://quotes.rest/qod.json?category=inspire';
+let queryInspire = 'http://quotes.rest/qod.json?category=inspire';
 
     $.ajax ({
         url: queryInspire,
@@ -13,6 +10,8 @@ function getGif() {
         $('#quoteArea').html(quote);
         $('#quoteAuthor').html(author);
     });
+       
+function getGif() {
 
     let queryURL = "https://api.giphy.com/v1/gifs/random?tag=" +
         "congrats" + "&api_key=lJvM8CYrpxziVxv5vy11SIH5QRxU7OU8" + "&limit=1";
