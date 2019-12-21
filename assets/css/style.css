@@ -5,6 +5,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+   
 }
 
 body {
@@ -323,7 +324,7 @@ a.pure-button-primary {
 }
 
 /* This is the class used for the footer */
-.footer {
+footer {
     background: #111;
     position: fixed;
     bottom: 0;
@@ -482,6 +483,16 @@ body {
     #cards {
         margin: 0 auto;
     }
+
+    .flex-container {
+        margin: none;
+        text-align: justify;
+
+    }
+
+    .verticalLine {
+        display: none;
+    }
 }
 
 /*
@@ -496,6 +507,7 @@ body {
         font-size: 16px;
     }
 
+    
     /* We can align the menu header to the left, but float the
     menu items to the right. */
     
