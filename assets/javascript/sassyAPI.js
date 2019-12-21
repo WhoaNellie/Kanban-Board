@@ -22,21 +22,18 @@ function getGif() {
         method: "GET"
     }).then(function (response) {
         console.log(response);
-        console.log("get response");
         //Trigger Modal
         $("#new-modal").attr("src", response.data.images.original.url);
         $("#myModal").attr("style", "display : block;");
         
         //When user clicks (x), the modal closes
         $(".close").on("click", function () {
-            console.log('heyyyyy');
             $("#myModal").attr("style", "display : none;");
         });
         
         //When user clicks anywhere outside the modal, it closes
         $(document).on("click", function() {
             if (event.target == myModal) {
-                console.log("hello")
                 $("#myModal").attr("style", "display : none;");
             }
         });

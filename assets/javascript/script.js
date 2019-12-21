@@ -187,7 +187,6 @@ $(document).ready(function () {
 
     // delete buttons
     $(document).on("click", ".ex" ,function() {
-        console.log("delete?");
         $(this).parent().remove();
         deleteArr[$(this).parent().attr("data-id")] = "hidden";
         localStorage.setItem("deleted", JSON.stringify(deleteArr));
@@ -195,21 +194,12 @@ $(document).ready(function () {
 
 
     function saveTask() {
-        console.log("save task");
-
-        console.log($(this).attr("data-id"));
-        // pushing a new index/value if this is a new card, else updating the old card's value
-
-        console.log(taskArr[0]);
-        console.log(taskArr[$(this).attr("data-id")]);
 
         // pushing a new index/value if this is a new card, else updating the old card's value
 
         if (taskArr[$(this).attr("data-id")] != null) {
-            console.log("if");
             taskArr[$(this).attr("data-id")] = $(this).val();
         } else {
-            console.log("else");
             taskArr.push($(this).val());
         }
 
@@ -218,17 +208,15 @@ $(document).ready(function () {
     }
 
     function saveState() {
-        console.log("save state");
 
         if (stateArr[$(this).parent().parent().attr("data-id")]) {
             stateArr[$(this).parent().parent().attr("data-id")] = $(this).attr("data-id");
         } else {
             stateArr.push($(this).attr("data-id"));
         }
-        // convert JSON to jquery? might cause problems at some point. getJSON()
+
         localStorage.setItem("states", JSON.stringify(stateArr));
         $(".card").remove();
-        // taskArr = JSON.parse(localStorage.getItem("tasks"));
         renewCards();
     }
 
